@@ -68,7 +68,15 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     programaDestino1: '',
     codigoProgramaDestino1: '',
     programaDestino2: '',
-    codigoProgramaDestino2: ''
+    codigoProgramaDestino2: '',
+    certificadoIdioma: null,
+    cartaPresentacion: null,
+    cartaMotivacion: null,
+    diploma: null,
+    certificadoCalificaciones: null,
+    curriculumVitae: null,
+    fotografia: null,
+    pasaporte: null
   });
   const [captchaValue, setCaptchaValue] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -77,10 +85,18 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
   const [openCaptchaErrorModal, setOpenCaptchaErrorModal] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value, files } = e.target;
+    if (files) {
+      setFormData({
+        ...formData,
+        [name]: files[0]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleCaptchaChange = (value) => {
@@ -91,9 +107,16 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     e.preventDefault();
     if (captchaValue) {
       setLoading(true);
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
+      });
+
       try {
-        const response = await axios.post('https://movilidad-int-server.vercel.app/sendEntrantePregradoData', {
-          insertData: Object.values(formData)
+        const response = await axios.post('https://movilidad-int-server.vercel.app/sendEntrantePregradoData', formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         });
         setLoading(false);
         if (response.status === 200) {
@@ -123,6 +146,22 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
   const handleCloseCaptchaErrorModal = () => {
     setOpenCaptchaErrorModal(false);
   };
+
+  const renderFileInput = (label, name, description) => (
+    <FormControl fullWidth margin="normal" sx={{justifyContent:'center'}}>
+      <Typography variant="subtitle1" gutterBottom>{label}</Typography>
+      <Typography variant="body2" color="textSecondary">{description}</Typography>
+      <Button
+        variant="contained"
+        component="label"
+        sx={{ backgroundColor: 'primary', color: '#fff', mb: 1, width:'30%', alignSelf:'center', marginTop:'5px'}}
+      >
+        Subir {label}
+        <input type="file" name={name} hidden onChange={handleChange} />
+      </Button>
+      {formData[name] && <Typography variant="body2">{formData[name].name}</Typography>}
+    </FormControl>
+  );
 
   return (
     <>
@@ -336,7 +375,18 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
             <TextField fullWidth margin="normal" label="Facultad del programa académico de origen" name="facultadOrigen" value={formData.facultadOrigen} onChange={handleChange} required />
             <TextField fullWidth margin="normal" label="Programa académico de destino 1" name="programaDestino1" value={formData.programaDestino1} onChange={handleChange} required />
             <TextField fullWidth margin="normal" label="Programa académico de destino 2" name="programaDestino2" value={formData.programaDestino2} onChange={handleChange} required />
-            
+
+            {/* Campos adicionales para archivos */}
+            <Typography variant="h6" component="h3">Documentos</Typography>
+            {renderFileInput('Certificado de Idioma', 'certificadoIdioma', 'Certificado de idioma expedido por un instituto de idiomas oficial o documento emitido por la institución de origen, donde certifique el dominio del idioma español en habla, escritura y lectura, nivel B2. Aplica para estudiantes donde el idioma español no sea la lengua nativa.')}
+            {renderFileInput('Carta de Presentación', 'cartaPresentacion', 'Carta de presentación emitida por la institución de origen (en hoja membretada y firmada), dirigida a la profesora Esther Cecilia Wilches Luna – Coordinadora de la Oficina de Asuntos Internacionales de la Facultad de Salud, especificando: nombre completo del estudiante, nombre de la movilidad a solicitar (Rotación clínica, pasantía, estancia de investigación o semestre de intercambio), área académica de interés y fechas exactas de inicio y finalización de la estancia.')}
+            {renderFileInput('Carta de Motivación', 'cartaMotivacion', 'Carta de motivación donde especifique las razones por las que desea realizar la movilidad internacional en la Universidad del Valle, así como las áreas académicas de su interés (máximo una página).')}
+            {renderFileInput('Diploma y Tarjeta Profesional', 'diploma', 'Diploma y tarjeta profesional (este último aplica para profesionales de la salud) expedida por el Ministerio de Salud o ente encargado en su país de origen.')}
+            {renderFileInput('Certificado de Calificaciones', 'certificadoCalificaciones', 'Certificado de calificaciones actualizado a la fecha de solicitud. En caso que la institución de origen no emita calificaciones numéricas, deberá enviar carta de aprobación del año en curso.')}
+            {renderFileInput('Curriculum Vitae', 'curriculumVitae', 'Curriculum Vitae / Hoja de vida (con fotografía).')}
+            {renderFileInput('Fotografía', 'fotografia', 'Fotografía a color en fondo blanco formato jpg. De ser aceptada la solicitud, con esta fotografía le será tramitado el carné estudiantil.')}
+            {renderFileInput('Pasaporte', 'pasaporte', 'Pasaporte donde se identifican los datos biográficos (vigente durante todo el periodo de movilidad). Los ciudadanos colombianos que estudian en el exterior, deberán adicionar la cédula de ciudadanía.')}
+
             <Grid container spacing={2} sx={{ mt: 2 }}>
               <Grid item xs={12}>
                 <ReCAPTCHA
