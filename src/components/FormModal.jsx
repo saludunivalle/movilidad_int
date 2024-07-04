@@ -395,7 +395,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <Button variant="contained" color="secondary" fullWidth onClick={onRequestClose}>
+                <Button variant="contained" color="primary" fullWidth onClick={onRequestClose}>
                   Cerrar
                 </Button>
               </Grid>
