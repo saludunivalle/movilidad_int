@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Modal, Box, Typography, Button, TextField, MenuItem, Select, InputLabel, FormControl, Grid, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Modal, Box, Typography, Button, TextField, MenuItem, Select, InputLabel, FormControl, Grid, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, CircularProgress } from '@mui/material';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { getNames } from 'country-list';
 
@@ -15,6 +15,19 @@ const style = {
   boxShadow: 24,
   p: 4,
   overflowY: 'auto',
+};
+
+const loadingStyle = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 9999,
 };
 
 const countryOptions = Object.entries(getNames()).map(([code, name]) => ({
@@ -58,6 +71,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     codigoProgramaDestino2: ''
   });
   const [captchaValue, setCaptchaValue] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const [openCaptchaErrorModal, setOpenCaptchaErrorModal] = useState(false);
@@ -76,16 +90,19 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (captchaValue) {
+      setLoading(true);
       try {
         const response = await axios.post('https://movilidad-int-server.vercel.app/sendEntrantePregradoData', {
           insertData: Object.values(formData)
         });
+        setLoading(false);
         if (response.status === 200) {
           setOpenSuccessModal(true);
         } else {
           setOpenErrorModal(true);
         }
       } catch (error) {
+        setLoading(false);
         console.error('Error al enviar los datos:', error);
         setOpenErrorModal(true);
       }
@@ -109,6 +126,11 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
 
   return (
     <>
+      {loading && (
+        <div style={loadingStyle}>
+          <CircularProgress color="inherit" />
+        </div>
+      )}
       <Modal
         open={isOpen}
         onClose={onRequestClose}
@@ -172,6 +194,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
             
             <TextField fullWidth margin="normal" label="Número de identificación" name="numeroIdentificacion" value={formData.numeroIdentificacion} onChange={handleChange} required />
             <TextField fullWidth margin="normal" label="Fecha de Nacimiento" name="fechaNacimiento" type="date" value={formData.fechaNacimiento} onChange={handleChange} required />
+            <TextField fullWidth margin="normal" label="Código del estudiante en univalle" name="codigoEstudiante" value={formData.codigoEstudiante} onChange={handleChange} required />
             
             <FormControl fullWidth margin="normal">
               <InputLabel>Periodo académico</InputLabel>
@@ -319,7 +342,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
             <Grid container spacing={2} sx={{ mt: 2 }}>
               <Grid item xs={12}>
                 <ReCAPTCHA
-                  sitekey="CLAVE_DEL_SITIO"  
+                  sitekey={import.meta.env.VITE_REACT_APP_SITE_KEY}  
                   onChange={handleCaptchaChange}
                 />
               </Grid>
