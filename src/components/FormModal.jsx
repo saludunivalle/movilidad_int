@@ -193,9 +193,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
             </FormControl>
             
             <TextField fullWidth margin="normal" label="Número de identificación" name="numeroIdentificacion" value={formData.numeroIdentificacion} onChange={handleChange} required />
-            <TextField fullWidth margin="normal" label="Fecha de Nacimiento" name="fechaNacimiento" type="date" value={formData.fechaNacimiento} onChange={handleChange} required />
-            <TextField fullWidth margin="normal" label="Código del estudiante en univalle" name="codigoEstudiante" value={formData.codigoEstudiante} onChange={handleChange} required />
-            
+            <TextField fullWidth margin="normal" label="Fecha de Nacimiento" name="fechaNacimiento" type="date" value={formData.fechaNacimiento} onChange={handleChange} required />            
             <FormControl fullWidth margin="normal">
               <InputLabel>Periodo académico</InputLabel>
               <Select
