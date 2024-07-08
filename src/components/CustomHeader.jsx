@@ -66,7 +66,7 @@ const CustomHeader = () => {
         </Link>
       </Logo>
       <TitleContainer>
-        <Title>Movilidad Internacional</Title>
+        <Title>Movilidad Internacional Estudiantil </Title>
       </TitleContainer>
     </HeaderContainer>
   );
