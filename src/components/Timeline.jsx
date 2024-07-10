@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { Typography, Box } from '@mui/material';
-import FormModal from './FormModal'; // Asegúrate de tener este componente creado
+import FormModal from './FormModal'; 
 import PersonIcon from '@mui/icons-material/Person';
 import PublicIcon from '@mui/icons-material/Public';
 import MenuBookIcon from '@mui/icons-material/MenuBook'; 
 import WorkIcon from '@mui/icons-material/Work'; 
 import '../App.css';
-import BadgeImage from '../assets/images/insignia.png'; // Ruta de la imagen local
-import BadgeImage2 from '../assets/images/insignia2.png'; // Ruta de la imagen local
+import BadgeImage from '../assets/images/insignia.png'; 
+import BadgeImage2 from '../assets/images/insignia2.png';
 
 const CustomTimeline = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
