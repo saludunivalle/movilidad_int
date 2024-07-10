@@ -31,3 +31,18 @@
   width: 5px;
   background: darkgrey;
 }
+
+.timeline-icon-container {
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-timeline-element--icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}

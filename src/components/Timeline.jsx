@@ -11,10 +11,6 @@ import '../App.css';
 import BadgeImage from '../assets/images/insignia.png'; // Ruta de la imagen local
 import BadgeImage2 from '../assets/images/insignia2.png'; // Ruta de la imagen local
 
-// import FormularioOAI from './FormularioOAI';
-// import FormularioUnidadAcademica from './FormularioUnidadAcademica';
-// import FormularioEscenarioPractica from './FormularioEscenarioPractica';
-
 const CustomTimeline = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentForm, setCurrentForm] = useState(null);
@@ -27,7 +23,7 @@ const CustomTimeline = () => {
       title: 'Formulario de Postulación', 
       description: 'Envía los documentos listados en el paso 1 a la OAI, con 4 meses de antelación a la fecha de inicio solicitada.', 
       date: today, 
-      icon: <PersonIcon style={{ cursor: 'pointer' }} onClick={() => openModal(0)} />, 
+      icon: <PersonIcon />, 
       username: 'Aspirante',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -35,8 +31,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Revisa que la documentación se encuentre completa y envía la postulación a la unidad académica.', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -44,8 +39,7 @@ const CustomTimeline = () => {
       color: '#89d242', 
       title: 'Unidad Académica', 
       description: 'Revisa la disponibilidad de cupos y docente en el escenario de práctica solicitado. Envía notificación al escenario de práctica con copia a la OAI.', 
-      //date: today, 
-      icon: <MenuBookIcon style={{ cursor: 'pointer' }} onClick={() => openModal(2)} />, 
+      icon: <MenuBookIcon />, 
       username: 'Universidad del Valle - Unidad Académica',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -53,8 +47,7 @@ const CustomTimeline = () => {
       color: '#2ba5e7', 
       title: 'Escenario de Práctica', 
       description: 'La coordinación académica u oficina de educación del escenario de práctica, informa a la unidad academica con copia a la OAI la aceptación o rechazo de la solicitud del estudiante mediante acta / carta en un plazo máximo de 15 días.', 
-      //date: today, 
-      icon: <WorkIcon style={{ cursor: 'pointer' }} onClick={() => openModal(3)} />, 
+      icon: <WorkIcon />, 
       username: 'Universidad del Valle - Escenario de Práctica',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -62,8 +55,7 @@ const CustomTimeline = () => {
       color: '#89d242', 
       title: 'Unidad Académica', 
       description: 'Envía la carta de aceptación a la OAI, en un plazo máximo de 15 días, detallando la información de la rotación, cronograma de actividades y nombre completo del docente responsable.', 
-      //date: today, 
-      icon: <MenuBookIcon style={{ cursor: 'pointer' }} onClick={() => openModal(2)} />, 
+      icon: <MenuBookIcon />, 
       username: 'Universidad del Valle - Unidad Académica',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -71,8 +63,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Envía la carta de aceptación al estudiante y demás información relacionada con la movilidad internacional.', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -80,8 +71,7 @@ const CustomTimeline = () => {
       color: '#ec722e', 
       title: 'Formulario Estudiante', 
       description: 'Envía: seguro médico internacional, vacunas, laboratorios y certificado de RCP* con 1 mes de antelación a la fecha de inicio de la rotación. * Sólo para estudiantes de posgrados clínicos. ', 
-      //date: today, 
-      icon: <PersonIcon style={{ cursor: 'pointer' }} onClick={() => openModal(0)} />, 
+      icon: <PersonIcon />, 
       username: 'Aspirante',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -89,8 +79,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Revisa que la documentación se encuentre completa.', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -98,8 +87,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Bienvenida del estudiante a la Facultad de Salud de la Universidad del Valle.', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal, // Para el formulario correspondiente
       badge: BadgeImage 
@@ -108,8 +96,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Coordina con el equipo de comunicaciones de la Facultad de Salud la entrevista de finalización de la movilidad internacional con diligenciamiento de la encuesta de satisfacción. ', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -117,8 +104,7 @@ const CustomTimeline = () => {
       color: '#89d242', 
       title: 'Unidad Académica', 
       description: 'Envía la constancia de calificación y/o movilidad a la OAI, en un plazo máximo de 15 días después de culminada la movilidad internacional. ', 
-      //date: today, 
-      icon: <MenuBookIcon style={{ cursor: 'pointer' }} onClick={() => openModal(2)} />, 
+      icon: <MenuBookIcon />, 
       username: 'Universidad del Valle - Unidad Académica',
       formComponent: FormModal // Para el formulario correspondiente
     },
@@ -126,8 +112,7 @@ const CustomTimeline = () => {
       color: '#de3dbc', 
       title: 'Formulario OAI', 
       description: 'Envía la constancia de calificación y/o movilidad al estudiante con copia a la unidad académica. ', 
-      //date: today, 
-      icon: <PublicIcon style={{ cursor: 'pointer' }} onClick={() => openModal(1)} />, 
+      icon: <PublicIcon />, 
       username: 'Universidad del Valle - OAI',
       formComponent: FormModal, // Para el formulario correspondiente
       badge: BadgeImage2
@@ -173,10 +158,21 @@ const CustomTimeline = () => {
                   </Box>
                 </>
               }
-              iconStyle={{ background: item.color, color: '#fff' }}
-              icon={item.icon} 
+              iconStyle={{ background: item.color, color: '#fff', cursor: 'pointer' }}
+              icon={
+                <div className="timeline-icon-container" onClick={() => openModal(index)}>
+                  {item.icon}
+                </div>
+              }
             >
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between',
+                  cursor: 'pointer'
+                }}
+                onClick={() => openModal(index)}
+              >
                 <Box sx={{ flex: 1, paddingRight: '10px', textAlign: index % 2 === 0 ? 'right' : 'left' }}>
                   <Typography variant="h6" component="h1">{item.title}</Typography>
                   <Typography>{item.description}</Typography>
