@@ -4,6 +4,7 @@ import { Modal, Box, Typography, Button, TextField, MenuItem, Select, InputLabel
 import ReCAPTCHA from 'react-google-recaptcha';
 import { getNames } from 'country-list';
 
+// Estilos para el modal principal
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,6 +18,7 @@ const style = {
   overflowY: 'auto',
 };
 
+// Estilos para el indicador de carga
 const loadingStyle = {
   position: 'fixed',
   top: 0,
@@ -30,12 +32,14 @@ const loadingStyle = {
   zIndex: 9999,
 };
 
+// Opciones de países obtenidas de una librería externa
 const countryOptions = Object.entries(getNames()).map(([code, name]) => ({
   value: code,
   label: name,
 }));
 
 const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
+ // Estado inicial del formulario
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -84,6 +88,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const [openCaptchaErrorModal, setOpenCaptchaErrorModal] = useState(false);
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
@@ -99,10 +104,12 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     }
   };
 
+  // Maneja el cambio de valor del captcha
   const handleCaptchaChange = (value) => {
     setCaptchaValue(value);
   };
 
+  // Envía los datos del formulario al backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (captchaValue) {
@@ -134,11 +141,14 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     }
   };
 
+
+  // Cierra el modal de éxito y notifica cierre del formulario
   const handleCloseSuccessModal = () => {
     setOpenSuccessModal(false);
     onRequestClose();
   };
 
+  // Funciones para cerrar modales de error
   const handleCloseErrorModal = () => {
     setOpenErrorModal(false);
   };
@@ -147,6 +157,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
     setOpenCaptchaErrorModal(false);
   };
 
+  // Renderiza un input para subir archivos
   const renderFileInput = (label, name, description) => (
     <FormControl fullWidth margin="normal" sx={{justifyContent:'center'}}>
       <Typography variant="subtitle1" gutterBottom>{label}</Typography>
@@ -170,6 +181,8 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
           <CircularProgress color="inherit" />
         </div>
       )}
+
+      {/* Modal del formulario */}
       <Modal
         open={isOpen}
         onClose={onRequestClose}
@@ -389,6 +402,7 @@ const FormModal = ({ isOpen, onRequestClose, formTitle }) => {
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
               <Grid item xs={12}>
+                {/* Captcha */}
                 <ReCAPTCHA
                   sitekey={import.meta.env.VITE_REACT_APP_SITE_KEY}  
                   onChange={handleCaptchaChange}

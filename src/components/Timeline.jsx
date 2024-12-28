@@ -15,8 +15,10 @@ const CustomTimeline = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentForm, setCurrentForm] = useState(null);
 
+  // Fecha actual para mostrar en los eventos
   const today = new Date().toLocaleDateString();
 
+  // Elementos de la línea de tiempo
   const items = [
     { 
       color: '#ec722e', 
@@ -119,6 +121,7 @@ const CustomTimeline = () => {
     }
   ];
 
+  // Abre el modal y selecciona el formulario actual
   const openModal = (formIndex) => {
     setCurrentForm(formIndex);
     setIsOpen(true);
